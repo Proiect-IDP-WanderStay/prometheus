@@ -8,3 +8,31 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['host.docker.internal:9323']
+
+  - job_name: 'node resources'
+    static_configs:
+      - targets: ['node_exporter:9100']
+    params:
+      collect[]:
+        - cpu
+        - meminfo
+        - diskstats
+        - netdev
+        - netstat
+
+  - job_name: 'node storage'
+    static_configs:
+      - targets: ['node_exporter:9100']
+    params:
+      collect[]:
+        - filefd
+        - filesystem
+        - xfs
+
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+
+  - job_name: 'io_api'
+    static_configs:
+      - targets: ['io_api:4000']
